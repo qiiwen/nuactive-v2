@@ -9,9 +9,9 @@ from flask_jwt_extended import (create_access_token)
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'sql12.freemysqlhosting.net'
-app.config['MYSQL_USER'] = 'sql12347184'
-app.config['MYSQL_PASSWORD'] = 'HQxcavY7hT'
-app.config['MYSQL_DB'] = 'sql12347184'
+app.config['MYSQL_USER'] = 'sql12349722'
+app.config['MYSQL_PASSWORD'] = 'JNTsPgGGpU'
+app.config['MYSQL_DB'] = 'sql12349722'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['JWT_SECRET_KEY'] = 'secret'
 
@@ -73,3 +73,16 @@ def login():
 	
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# @app.route('/users/activities', methods=['POST'])
+# def add_task():
+#     cur = mysql.connection.cursor()
+#     # instead of getting title, need to get class name
+#     title = request.get_json()['title']
+
+#     cur.execute("INSERT INTO users (classes) VALUES ('" + str(title) + "')")
+#     mysql.connection.commit()
+#     result = {'title':title}
+
+#     return jsonify({"result": result})
