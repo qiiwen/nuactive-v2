@@ -44,3 +44,14 @@ export const getProfile = (user) => {
       console.log(err);
     });
 };
+
+export const signup = (activity) => {
+  return axiosURL
+    .post("users/activities", { activity })
+    .then((response) => {
+      console.log("Signed up");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

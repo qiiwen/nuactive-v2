@@ -5,6 +5,8 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import (create_access_token)
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 
 app = Flask(__name__)
 
@@ -24,6 +26,11 @@ CORS(app)
 @app.route('/', methods=['GET'])
 def getDefault():
     return 'Flask server up and running'
+
+@jwt_required
+def get(self):
+    uid = get_jwt_identity()
+    print("self.uid",uid)
 
 @app.route('/users/register', methods=['POST'])
 def register():
@@ -70,19 +77,21 @@ def login():
         result = jsonify({"error":"Invalid username and password"})
     
     return result
+
+
+@app.route('/users/activities', methods=['POST'])
+@jwt_required
+def add_task():
+    cur = mysql.connection.cursor()
+    activity = request.get_json()['activity']
+    access_token = create_access_token(identity = {'first_name': rv['first_name'],'last_name': rv['last_name'],'email': rv['email'],'points': rv['points'],'classes': rv['classes']})
+    uid = get_jwt_identity()
+
+    cur.execute("INSERT INTO users (classes) VALUES ('" + str(activity) + "') where id = '" + int(uid) + "'")
+    mysql.connection.commit()
+    result = {'activity':activity}
+
+    return jsonify({"result": result})
 	
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# @app.route('/users/activities', methods=['POST'])
-# def add_task():
-#     cur = mysql.connection.cursor()
-#     # instead of getting title, need to get class name
-#     title = request.get_json()['title']
-
-#     cur.execute("INSERT INTO users (classes) VALUES ('" + str(title) + "')")
-#     mysql.connection.commit()
-#     result = {'title':title}
-
-#     return jsonify({"result": result})
