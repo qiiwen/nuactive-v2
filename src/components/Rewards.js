@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Box } from "grommet";
+import Reward from "./RewardsList";
 
 class Rewards extends Component {
   render() {
@@ -13,9 +14,9 @@ class Rewards extends Component {
           </div>
         </div>
         <Box pad="large" background="#F2EEF9" style={boxStyle}>
-          <p class="para" style={paraStyle}>
-            moolas
-          </p>
+          <div className="items">
+            <Reward />
+          </div>
         </Box>
       </div>
     );
