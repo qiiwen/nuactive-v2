@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, InfiniteScroll, Text } from "grommet";
+import { Box } from "grommet";
 import Activity from "./ActivityList";
 
 class Activities extends Component {
@@ -29,18 +29,11 @@ const jumbotronStyle = {
 
 const h1Style = {
   color: "white",
+  fontSize: "50px",
 };
 
 const boxStyle = {
   padding: "10px",
-};
-
-const paraStyle = {
-  padding: "10px",
-  margin: "10px 20px 10px 20px",
-  fontSize: "17px",
-  text: "align",
-  textAlign: "justify",
 };
 
 export default Activities;
