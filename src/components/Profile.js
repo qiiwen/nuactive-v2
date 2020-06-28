@@ -29,30 +29,33 @@ class Profile extends Component {
   render() {
     return (
       <div className="container">
-        <div className="jumbotron mt-5">
+        <div className="jumbotron mt-5" style={jumbotronStyle}>
           <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">PROFILE</h1>
+            <h1 className="text-center" style={h1Style}>
+              PROFILE
+            </h1>
+            <pre></pre>
           </div>
           <table className="table col-md-6 mx-auto">
             <tbody>
               <tr>
-                <td>First Name</td>
+                <td>First Name: </td>
                 <td>{this.state.first_name}</td>
               </tr>
               <tr>
-                <td>Last Name</td>
+                <td>Last Name: </td>
                 <td>{this.state.last_name}</td>
               </tr>
               <tr>
-                <td>Email</td>
+                <td>Email: </td>
                 <td>{this.state.email}</td>
               </tr>
               <tr>
-                <td>Points</td>
+                <td>Points: </td>
                 <td>{this.state.points}</td>
               </tr>
               <tr>
-                <td>Classes</td>
+                <td>Classes: </td>
                 <td>{this.state.classes}</td>
               </tr>
             </tbody>
@@ -62,5 +65,14 @@ class Profile extends Component {
     );
   }
 }
+
+const jumbotronStyle = {
+  background: "#F2EEF9",
+};
+
+const h1Style = {
+  color: "#410543",
+  fontSize: "50px",
+};
 
 export default Profile;
