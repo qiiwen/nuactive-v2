@@ -8,7 +8,7 @@ class About extends Component {
         <div className="jumbotron mt-5" style={jumbotronStyle}>
           <div className="col-sm-8 mx-auto">
             <h1 className="text-center" style={h1Style}>
-              ABOUT
+              ABOUT US
             </h1>
           </div>
         </div>
@@ -33,6 +33,7 @@ const jumbotronStyle = {
 
 const h1Style = {
   color: "white",
+  fontSize: "50px",
 };
 
 const boxStyle = {
