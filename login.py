@@ -84,10 +84,9 @@ def login():
 def add_task():
     cur = mysql.connection.cursor()
     activity = request.get_json()['activity']
-    access_token = create_access_token(identity = {'first_name': rv['first_name'],'last_name': rv['last_name'],'email': rv['email'],'points': rv['points'],'classes': rv['classes']})
     uid = get_jwt_identity()
 
-    cur.execute("INSERT INTO users (classes) VALUES ('" + str(activity) + "') where id = '" + int(uid) + "'")
+    cur.execute("INSERT INTO users (classes) VALUES ('" + str(activity) + "') where email = '" + str(uid['email']) + "'")
     mysql.connection.commit()
     result = {'activity':activity}
 
