@@ -27,10 +27,6 @@ CORS(app)
 def getDefault():
     return 'Flask server up and running'
 
-@jwt_required
-def get(self):
-    uid = get_jwt_identity()
-    print("self.uid",uid)
 
 @app.route('/users/register', methods=['POST'])
 def register():
@@ -78,6 +74,12 @@ def login():
     
     return result
 
+@app.route('/test-jwt', methods=['GET'])
+@jwt_required
+def test_jwt():
+    uid = get_jwt_identity()
+    print(uid)
+    return ""
 
 @app.route('/users/activities', methods=['POST'])
 @jwt_required
@@ -85,10 +87,17 @@ def add_task():
     cur = mysql.connection.cursor()
     activity = request.get_json()['activity']
     uid = get_jwt_identity()
+    print(uid['email'])
 
-    cur.execute("INSERT INTO users (classes) VALUES ('" + str(activity) + "') where email = '" + str(uid['email']) + "'")
-    mysql.connection.commit()
-    result = {'activity':activity}
+    if get_jwt_identity:
+        query = """ UPDATE users SET classes = CONCAT(classes, ",", %s) WHERE email = %s"""
+        data = (str(activity),str(uid['email']))
+        cur.execute(query,data)
+        mysql.connection.commit()
+        result = {'activity':activity}
+
+    else: 
+        result = {"error":"Please login or sign up"}
 
     return jsonify({"result": result})
 	

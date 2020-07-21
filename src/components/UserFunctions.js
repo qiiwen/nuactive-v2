@@ -46,6 +46,9 @@ export const getProfile = (user) => {
 };
 
 export const signup = (activity) => {
+  axiosURL.defaults.headers.common["Authorization"] = `Bearer ${
+    localStorage.getItem("usertoken").trim() || ""
+  }`;
   return axiosURL
     .post("users/activities", { activity })
     .then((response) => {
