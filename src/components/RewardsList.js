@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, Button, Box } from "grommet";
-import { signup } from "./UserFunctions";
+import { redeem } from "./UserFunctions";
 
 export default class Reward extends Component {
   render() {
@@ -95,7 +95,7 @@ export default class Reward extends Component {
                   fill="true"
                   color="#664b78"
                   size="medium"
-                  onClick={() => signup(rewards.title)}
+                  onClick={() => redeem(rewards.location)}
                 />
               </div>
             </div>

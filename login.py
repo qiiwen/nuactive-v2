@@ -67,7 +67,7 @@ def login():
     rv = cur.fetchone()
 	
     if bcrypt.check_password_hash(rv['password'], password):
-        access_token = create_access_token(identity = {'first_name': rv['first_name'],'last_name': rv['last_name'],'email': rv['email'],'points': rv['points'],'classes': rv['classes']})
+        access_token = create_access_token(identity = {'first_name': rv['first_name'],'last_name': rv['last_name'],'email': rv['email'],'points': rv['points'],'classes': rv['classes'], 'rewards':rv['rewards']})
         result = access_token
     else:
         result = jsonify({"error":"Invalid username and password"})
@@ -90,7 +90,7 @@ def add_task():
     print(uid['email'])
 
     if get_jwt_identity:
-        query = """ UPDATE users SET classes = CONCAT(classes, ",", %s) WHERE email = %s"""
+        query = """ UPDATE users SET classes = CONCAT(classes, " ", %s) WHERE email = %s"""
         data = (str(activity),str(uid['email']))
         cur.execute(query,data)
         mysql.connection.commit()
@@ -100,6 +100,27 @@ def add_task():
         result = {"error":"Please login or sign up"}
 
     return jsonify({"result": result})
+
+@app.route('/users/rewards', methods=['POST'])
+@jwt_required
+def add_reward():
+    cur = mysql.connection.cursor()
+    rewards = request.get_json()['rewards']
+    uid = get_jwt_identity()
+    print(uid['email'])
+
+    if get_jwt_identity:
+        query = """ UPDATE users SET rewards = CONCAT(rewards, " ", %s), points = points-100 WHERE email = %s"""
+        data = (str(rewards),str(uid['email']))
+        cur.execute(query,data)
+        mysql.connection.commit()
+        result = {'rewards':rewards}
+
+    else: 
+        result = {"error":"Not enough points!"}
+
+    return jsonify({"result": result})
 	
 if __name__ == '__main__':
     app.run(debug=True)
+

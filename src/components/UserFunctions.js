@@ -58,3 +58,17 @@ export const signup = (activity) => {
       console.log(err);
     });
 };
+
+export const redeem = (rewards) => {
+  axiosURL.defaults.headers.common["Authorization"] = `Bearer ${
+    localStorage.getItem("usertoken").trim() || ""
+  }`;
+  return axiosURL
+    .post("users/rewards", { rewards })
+    .then((response) => {
+      console.log("Redeemed");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

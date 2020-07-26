@@ -10,6 +10,7 @@ class Profile extends Component {
       email: "",
       points: "",
       classes: "",
+      rewards: "",
       errors: {},
     };
   }
@@ -23,6 +24,7 @@ class Profile extends Component {
       email: decoded.identity.email,
       points: decoded.identity.points,
       classes: decoded.identity.classes,
+      rewards: decoded.identity.rewards,
     });
   }
 
@@ -57,6 +59,10 @@ class Profile extends Component {
               <tr>
                 <td>Classes: </td>
                 <td>{this.state.classes}</td>
+              </tr>
+              <tr>
+                <td>Rewards: </td>
+                <td>{this.state.rewards}</td>
               </tr>
             </tbody>
           </table>
